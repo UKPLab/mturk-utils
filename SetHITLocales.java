@@ -147,6 +147,11 @@ public class SetHITLocales
         System.out.println("\nHIT type ID: " + hitType);
 
         changeHitType(globalProperties, hitType, hitIDsFile, dryRun);
+
+        String hitURL = useSandbox ? "https://workersandbox.mturk.com/mturk/preview?groupId="
+                : "https://www.mturk.com/mturk/preview?groupId=";
+        System.out.println("\nYou may see your HIT(s) with HITTypeId '" + hitType + "' here:");
+        System.out.print("\n  " + hitURL + hitType);
     }
 
     /**
@@ -434,7 +439,7 @@ public class SetHITLocales
                         .println("\nError response:\n" + xmlPrettyPrinter(response.toString(), 2));
             }
         }
-        System.out.println("HITs processed: " + hitCount);
+        System.out.println("\nHITs processed: " + hitCount);
         System.out.println("Successful    : " + (hitCount - errorHits.size()));
         System.out.println("Errors        : " + errorHits.size());
         System.out.println("Error HIT IDs :");
