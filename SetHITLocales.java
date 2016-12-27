@@ -144,7 +144,6 @@ public class SetHITLocales
         properties.list(System.out);
 
         String hitType = registerHitType(globalProperties, properties, dryRun);
-        System.out.println("\nHIT type ID: " + hitType);
 
         changeHitType(globalProperties, hitType, hitIDsFile, dryRun);
 
