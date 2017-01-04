@@ -55,20 +55,7 @@ while getopts ":m:w:r:s" opt; do
 done
 shift $((OPTIND-1))
 
-if [ "$resultfile" = "" ]; then
-    echo "Missing mandatory option -r"
-    usage
-    exit 1
-fi
-
-if [ "$workerid" = "" ]; then
-    echo "Missing mandatory option -w"
-    usage
-    exit 1
-fi
-
-if [ "$message" = "" ]; then
-    echo "Missing mandatory option -m"
+if [ -z "$resultfile" ] || [ -z "$workerid" ] || [ -z "$message" ] || [ $# != 0 ]; then
     usage
     exit 1
 fi
