@@ -66,13 +66,15 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.uima.UIMAException;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import de.tudarmstadt.ukp.experiments.snoopy.tf3.preprocessing.CommandLineUtils;
 
 /**
  * Updates the locale qualification of existing HITs
@@ -104,53 +106,70 @@ public class SetHITLocales
         propertyMap = Collections.unmodifiableMap(aMap);
     }
 
-    public static void main(String[] args)
-        throws IllegalArgumentException, IOException, InvalidKeyException, NoSuchAlgorithmException,
-        XPathExpressionException, SAXException, ParserConfigurationException, TransformerException
+    @Option(name="-g",metaVar="globalPropertiesFile",usage="global mturk.properties file", required=true)
+	private File globalPropertiesFile = new File(".");
+	
+	@Option(name="-h",metaVar="hitPropertiesFile",usage="HIT mturk.properties file", required=true)
+	private File hitPropertiesFile = new File(".");
+	
+	@Option(name="-i",metaVar="hitIdFile",usage="HIT IDs file", required=true)
+	private File hitIDsFile = new File(".");
+	
+	@Option(name="-l",metaVar="locales",usage="comma-delimited list of locales", required=true)
+	private String local = "";
+	
+	@Option(name="-s",metaVar="sandbox",usage="boolean value for using MTurk sandbox instead of production", required=false)
+    private boolean useSandbox = false;
+	
+	@Option(name="-d",metaVar="dry-run",usage="create REST requests but don't send them", required=false)
+    private boolean dryRun = false;
+	
+	public static void main(String[] args)
+            throws Exception
     {
-        CommandLineUtils cmdUtils = new CommandLineUtils();
+		new SetHITLocales().doMain(args);
+	       
+    }
+    
+    private void doMain(String[] args) throws UIMAException, IOException, InvalidKeyException, NoSuchAlgorithmException, XPathExpressionException, SAXException, ParserConfigurationException, TransformerException
+    {
+    	CmdLineParser parser = new CmdLineParser(this);
+		try {
+            // parse the arguments.
+            parser.parseArgument(args);
+            List<String> locales = Arrays
+                    .asList(local.toUpperCase().split(","));
 
-        cmdUtils.addStringOption("g", "globalPropertiesFile", "global mturk.properties file", true);
-        cmdUtils.addStringOption("h", "hitPropertiesFile", "HIT mturk.properties file", true);
-        cmdUtils.addStringOption("i", "hitIdFile", "HIT IDs file", true);
-        cmdUtils.addBooleanOption("s", "sandbox", "use sandbox instead of production server");
-        cmdUtils.addStringOption("l", "locales", "comma-delimited list of locales", true);
-        cmdUtils.addBooleanOption("d", "dry-run",
-                "dry run; create REST requests but don't send them");
+            Properties globalProperties = new Properties();
+            readProperties(globalProperties, globalPropertiesFile,
+                    Arrays.asList(new String[] { "access_key", "secret_key", "service_url" }));
 
-        cmdUtils.parse(args);
+            if (useSandbox) {
+                globalProperties.put("service_url",
+                        "https://mechanicalturk.sandbox.amazonaws.com/?Service=AWSMechanicalTurkRequester");
+            }
 
-        File globalPropertiesFile = new File(cmdUtils.getStringOption("g"));
-        File hitPropertiesFile = new File(cmdUtils.getStringOption("h"));
-        File hitIDsFile = new File(cmdUtils.getStringOption("i"));
-        List<String> locales = Arrays
-                .asList(cmdUtils.getStringOption("l").toUpperCase().split(","));
-        boolean dryRun = cmdUtils.getBooleanOption("d");
-        boolean useSandbox = cmdUtils.getBooleanOption("s");
+            Properties properties = new Properties();
+            readProperties(properties, hitPropertiesFile, null);
+            properties = convertProperties(properties);
+            setLocales(properties, locales);
+            properties.list(System.out);
 
-        Properties globalProperties = new Properties();
-        readProperties(globalProperties, globalPropertiesFile,
-                Arrays.asList(new String[] { "access_key", "secret_key", "service_url" }));
+            String hitType = registerHitType(globalProperties, properties, dryRun);
 
-        if (useSandbox) {
-            globalProperties.put("service_url",
-                    "https://mechanicalturk.sandbox.amazonaws.com/?Service=AWSMechanicalTurkRequester");
+            changeHitType(globalProperties, hitType, hitIDsFile, dryRun);
+
+            String hitURL = useSandbox ? "https://workersandbox.mturk.com/mturk/preview?groupId="
+                    : "https://www.mturk.com/mturk/preview?groupId=";
+            System.out.println("\nYou may see your HIT(s) with HITTypeId '" + hitType + "' here:");
+            System.out.print("\n  " + hitURL + hitType);
+        } catch( CmdLineException e ) {
+            System.err.println(e.getMessage());
+            System.err.println("java SampleMain [options...] arguments...");
+            parser.printUsage(System.err);
+            System.err.println();
+            return;
         }
-
-        Properties properties = new Properties();
-        readProperties(properties, hitPropertiesFile, null);
-        properties = convertProperties(properties);
-        setLocales(properties, locales);
-        properties.list(System.out);
-
-        String hitType = registerHitType(globalProperties, properties, dryRun);
-
-        changeHitType(globalProperties, hitType, hitIDsFile, dryRun);
-
-        String hitURL = useSandbox ? "https://workersandbox.mturk.com/mturk/preview?groupId="
-                : "https://www.mturk.com/mturk/preview?groupId=";
-        System.out.println("\nYou may see your HIT(s) with HITTypeId '" + hitType + "' here:");
-        System.out.print("\n  " + hitURL + hitType);
     }
 
     /**
