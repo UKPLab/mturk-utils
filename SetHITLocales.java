@@ -106,22 +106,22 @@ public class SetHITLocales
         propertyMap = Collections.unmodifiableMap(aMap);
     }
 
-    @Option(name="-g",metaVar="globalPropertiesFile",usage="global mturk.properties file", required=true)
-	private File globalPropertiesFile = new File(".");
+    @Option(name="-g",aliases = { "--globalPropertiesFile" },metaVar="globalPropertiesFile",usage="global mturk.properties file", required=true)
+	private File globalPropertiesFile;
 	
-	@Option(name="-h",metaVar="hitPropertiesFile",usage="HIT mturk.properties file", required=true)
-	private File hitPropertiesFile = new File(".");
+	@Option(name="-h",aliases = { "--hitPropertiesFile" },metaVar="hitPropertiesFile",usage="HIT mturk.properties file", required=true)
+	private File hitPropertiesFile;
 	
-	@Option(name="-i",metaVar="hitIdFile",usage="HIT IDs file", required=true)
-	private File hitIDsFile = new File(".");
+	@Option(name="-i",aliases = { "--hitIdFile" },metaVar="hitIdFile",usage="HIT IDs file", required=true)
+	private File hitIDsFile;
 	
-	@Option(name="-l",metaVar="locales",usage="comma-delimited list of locales", required=true)
-	private String local = "";
+	@Option(name="-l",aliases = { "--locales" },metaVar="locales",usage="comma-delimited list of locales", required=true)
+	private String local;
 	
-	@Option(name="-s",metaVar="sandbox",usage="boolean value for using MTurk sandbox instead of production", required=false)
+	@Option(name="-s",aliases = { "--sandbox" },metaVar="sandbox",usage="boolean value for using MTurk sandbox instead of production", required=false)
     private boolean useSandbox = false;
 	
-	@Option(name="-d",metaVar="dry-run",usage="create REST requests but don't send them", required=false)
+	@Option(name="-d",aliases = { "--dry-run" },metaVar="dry-run",usage="create REST requests but don't send them", required=false)
     private boolean dryRun = false;
 	
 	public static void main(String[] args)
@@ -165,7 +165,7 @@ public class SetHITLocales
             System.out.print("\n  " + hitURL + hitType);
         } catch( CmdLineException e ) {
             System.err.println(e.getMessage());
-            System.err.println("java SampleMain [options...] arguments...");
+            System.err.println("java "+this.getClass().getSimpleName()+" [options...] arguments...");
             parser.printUsage(System.err);
             System.err.println();
             return;
