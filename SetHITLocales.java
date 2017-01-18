@@ -106,22 +106,22 @@ public class SetHITLocales
         propertyMap = Collections.unmodifiableMap(aMap);
     }
 
-    @Option(name="-g",aliases = { "--globalPropertiesFile" },metaVar="globalPropertiesFile",usage="global mturk.properties file", required=true)
+    @Option(name="-g",aliases = { "--globalPropertiesFile" },metaVar="file",usage="global mturk.properties file", required=true)
 	private File globalPropertiesFile;
 	
-	@Option(name="-h",aliases = { "--hitPropertiesFile" },metaVar="hitPropertiesFile",usage="HIT mturk.properties file", required=true)
+	@Option(name="-h",aliases = { "--hitPropertiesFile" },metaVar="file",usage="HIT mturk.properties file", required=true)
 	private File hitPropertiesFile;
 	
-	@Option(name="-i",aliases = { "--hitIdFile" },metaVar="hitIdFile",usage="HIT IDs file", required=true)
+	@Option(name="-i",aliases = { "--hitIdFile" },metaVar="file",usage="HIT IDs file", required=true)
 	private File hitIDsFile;
 	
-	@Option(name="-l",aliases = { "--locales" },metaVar="locales",usage="comma-delimited list of locales", required=true)
+	@Option(name="-l",aliases = { "--locales" },metaVar="string",usage="comma-delimited list of locales", required=true)
 	private String local;
 	
-	@Option(name="-s",aliases = { "--sandbox" },metaVar="sandbox",usage="boolean value for using MTurk sandbox instead of production", required=false)
+	@Option(name="-s",aliases = { "--sandbox" },metaVar="boolean",usage="boolean value for using MTurk sandbox instead of production", required=false)
     private boolean useSandbox = false;
 	
-	@Option(name="-d",aliases = { "--dry-run" },metaVar="dry-run",usage="create REST requests but don't send them", required=false)
+	@Option(name="-d",aliases = { "--dry-run" },metaVar="boolean",usage="create REST requests but don't send them", required=false)
     private boolean dryRun = false;
 	
 	public static void main(String[] args)
