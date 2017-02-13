@@ -24,7 +24,6 @@ usage() {
     echo "Usage: $0 [ -s ] <file.result>"
     echo
     echo "  -s	run against the AMT developer sandbox environment"
-    echo "  -h	how many hours to extend the expiration date of the HITs"
 }
 
 while getopts ":s" opt; do
