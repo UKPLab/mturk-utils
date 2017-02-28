@@ -57,7 +57,7 @@ echo -e "assignmentIdToApprove\tassignmentIdToApproveComment" > "$approvefile"
 cut -f19,21 "$resultfile" \
     | fgrep "Submitted" \
     | cut -f1 \
-    | sed 's/$/\t/' \
+    | sed 's/$/	/' \
 	   >> "$approvefile"
 
 ./approveWork.sh "$sandbox" -approvefile "$approvefile"
