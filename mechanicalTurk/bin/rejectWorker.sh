@@ -61,7 +61,7 @@ if [ -z "$resultfile" ] || [ -z "$workerid" ] || [ -z "$message" ] || [ $# != 0 
 fi
 
 if [ ! -r "$resultfile" ]; then
-    echo "Can't open $resutfile"
+    echo "Can't open $resultfile"
     exit 1
 fi
 
