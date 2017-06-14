@@ -66,7 +66,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.uima.UIMAException;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -108,30 +107,30 @@ public class SetHITLocales
 
     @Option(name="-g",aliases = { "--globalPropertiesFile" },metaVar="file",usage="global mturk.properties file", required=true)
 	private File globalPropertiesFile;
-	
+
 	@Option(name="-h",aliases = { "--hitPropertiesFile" },metaVar="file",usage="HIT mturk.properties file", required=true)
 	private File hitPropertiesFile;
-	
+
 	@Option(name="-i",aliases = { "--hitIdFile" },metaVar="file",usage="HIT IDs file", required=true)
 	private File hitIDsFile;
-	
+
 	@Option(name="-l",aliases = { "--locales" },metaVar="string",usage="comma-delimited list of locales", required=true)
 	private String local;
-	
+
 	@Option(name="-s",aliases = { "--sandbox" },usage="use MTurk sandbox instead of production")
     private boolean useSandbox = false;
-	
+
 	@Option(name="-d",aliases = { "--dry-run" },usage="create REST requests but don't send them")
     private boolean dryRun = false;
-	
+
 	public static void main(String[] args)
             throws Exception
     {
 		new SetHITLocales().doMain(args);
-	       
+
     }
-    
-    private void doMain(String[] args) throws UIMAException, IOException, InvalidKeyException, NoSuchAlgorithmException, XPathExpressionException, SAXException, ParserConfigurationException, TransformerException
+
+    private void doMain(String[] args) throws IOException, InvalidKeyException, NoSuchAlgorithmException, XPathExpressionException, SAXException, ParserConfigurationException, TransformerException
     {
     	CmdLineParser parser = new CmdLineParser(this);
 		try {
