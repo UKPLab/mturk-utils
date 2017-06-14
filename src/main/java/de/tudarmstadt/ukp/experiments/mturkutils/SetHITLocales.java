@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package de.tudarmstadt.ukp.experiments.snoopy.tf3.crowdsourcing;
+package de.tudarmstadt.ukp.experiments.mturkutils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
