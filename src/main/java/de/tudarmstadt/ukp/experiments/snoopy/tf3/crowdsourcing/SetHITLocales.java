@@ -85,6 +85,30 @@ import org.xml.sax.SAXException;
 public class SetHITLocales
 {
 
+    @Option(name = "-g", aliases = {
+            "--globalPropertiesFile" }, metaVar = "file", usage = "global mturk.properties file", required = true)
+    private File globalPropertiesFile;
+
+    @Option(name = "-h", aliases = {
+            "--hitPropertiesFile" }, metaVar = "file", usage = "HIT mturk.properties file", required = true)
+    private File hitPropertiesFile;
+
+    @Option(name = "-i", aliases = {
+            "--hitIdFile" }, metaVar = "file", usage = "HIT IDs file", required = true)
+    private File hitIDsFile;
+
+    @Option(name = "-l", aliases = {
+            "--locales" }, metaVar = "string", usage = "comma-delimited list of locales", required = true)
+    private String local;
+
+    @Option(name = "-s", aliases = {
+            "--sandbox" }, usage = "use MTurk sandbox instead of production")
+    private boolean useSandbox = false;
+
+    @Option(name = "-d", aliases = {
+            "--dry-run" }, usage = "create REST requests but don't send them")
+    private boolean dryRun = false;
+
     // Mapping of command-line properties to REST properties
     private static final Map<String, String> propertyMap;
     static {
@@ -106,39 +130,22 @@ public class SetHITLocales
         propertyMap = Collections.unmodifiableMap(aMap);
     }
 
-    @Option(name="-g",aliases = { "--globalPropertiesFile" },metaVar="file",usage="global mturk.properties file", required=true)
-	private File globalPropertiesFile;
-
-	@Option(name="-h",aliases = { "--hitPropertiesFile" },metaVar="file",usage="HIT mturk.properties file", required=true)
-	private File hitPropertiesFile;
-
-	@Option(name="-i",aliases = { "--hitIdFile" },metaVar="file",usage="HIT IDs file", required=true)
-	private File hitIDsFile;
-
-	@Option(name="-l",aliases = { "--locales" },metaVar="string",usage="comma-delimited list of locales", required=true)
-	private String local;
-
-	@Option(name="-s",aliases = { "--sandbox" },usage="use MTurk sandbox instead of production")
-    private boolean useSandbox = false;
-
-	@Option(name="-d",aliases = { "--dry-run" },usage="create REST requests but don't send them")
-    private boolean dryRun = false;
-
-	public static void main(String[] args)
-            throws Exception
+    public static void main(String[] args)
+        throws Exception
     {
-		new SetHITLocales().doMain(args);
+        new SetHITLocales().doMain(args);
 
     }
 
-    private void doMain(String[] args) throws IOException, InvalidKeyException, NoSuchAlgorithmException, XPathExpressionException, SAXException, ParserConfigurationException, TransformerException
+    private void doMain(String[] args)
+        throws IOException, InvalidKeyException, NoSuchAlgorithmException, XPathExpressionException,
+        SAXException, ParserConfigurationException, TransformerException
     {
-    	CmdLineParser parser = new CmdLineParser(this);
-		try {
+        CmdLineParser parser = new CmdLineParser(this);
+        try {
             // parse the arguments.
             parser.parseArgument(args);
-            List<String> locales = Arrays
-                    .asList(local.toUpperCase().split(","));
+            List<String> locales = Arrays.asList(local.toUpperCase().split(","));
 
             Properties globalProperties = new Properties();
             readProperties(globalProperties, globalPropertiesFile,
@@ -163,9 +170,11 @@ public class SetHITLocales
                     : "https://www.mturk.com/mturk/preview?groupId=";
             System.out.println("\nYou may see your HIT(s) with HITTypeId '" + hitType + "' here:");
             System.out.print("\n  " + hitURL + hitType);
-        } catch( CmdLineException e ) {
+        }
+        catch (CmdLineException e) {
             System.err.println(e.getMessage());
-            System.err.println("java "+this.getClass().getSimpleName()+" [options...] arguments...");
+            System.err.println(
+                    "java " + this.getClass().getSimpleName() + " [options...] arguments...");
             parser.printUsage(System.err);
             System.err.println();
             return;
