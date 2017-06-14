@@ -78,9 +78,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Updates the locale qualification of existing HITs
- *
- * @author miller
- *
  */
 public class SetHITLocales
 {
@@ -541,7 +538,7 @@ public class SetHITLocales
     }
 
     /**
-     * Computes RFC 2104-compliant HMAC signature.
+     * Computes an RFC 2104-compliant HMAC signature
      *
      * @param data
      *            The data to be signed.
