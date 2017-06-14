@@ -31,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -416,7 +417,7 @@ public class SetHITLocales
     {
         int hitCount = 0;
         List<String> errorHits = new ArrayList<String>();
-        for (String line : FileUtils.readLines(hitIDsFile)) {
+        for (String line : FileUtils.readLines(hitIDsFile, Charset.defaultCharset())) {
             // Ignore header of AMT .success file
             if (line.startsWith("hitid")) {
                 continue;
