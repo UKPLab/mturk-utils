@@ -42,7 +42,21 @@
 
 	<build>
 		<plugins>
-      <plugin>
+     <plugin>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <configuration>
+        <finalName>mturk-utils</finalName>
+	<archive>
+          <manifest>
+            <mainClass>de.tudarmstadt.ukp.experiments.mturkutils.SetHITLocales</mainClass>
+          </manifest>
+        </archive>
+        <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+      </configuration>
+    </plugin>
+     <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
