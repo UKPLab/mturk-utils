@@ -16,9 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script takes an AMT results file and determines how many rejected
-# assignments there are for each HIT.  Then it adds a corresponding number
-# of assignments for those HITs.
+# This script takes an AMT results file and a worker ID, and then
+# rejects all submitted assignments by that worker.
 
 usage() {
     echo "Usage: $0 [ -s ] -r <file.result> -w <workerid> -m <rejectionmessage>"
