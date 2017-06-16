@@ -38,9 +38,13 @@ rejects all submitted assignments by that worker.
 ### `setHITLocales.sh`
 
 This script updates the locale qualification of existing HITs.  Unlike
-the AMT command-line utilities, you can specify more than one locale.
-For example, you can restrict your HITs to workers in the United
-States, Germany, and Hungary by passing a locale value of `us,de,hu`.
+earlier versions of the AMT command-line utilities, you can specify
+more than one locale.  For example, you can restrict your HITs to
+workers in the United States, Germany, and Hungary by passing a locale
+value of `us,de,hu`.
+([Amazon apparently added this feature to the command-line tools in Version 1.3.3,](https://forums.aws.amazon.com/thread.jspa?messageID=755218&#755218)
+so if you are using that version or later, then you probably do not
+need this script.)
 
 ## Contact
 
