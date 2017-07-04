@@ -68,7 +68,7 @@ for count in $(cut -c-7 "$countfile" | uniq);do
     successfile="$(mktemp)"
     echo "hitid" > "$successfile"
     grep "^ *$count " "$countfile" \
-	| cut -c9- \
+	| cut -f2 -d\" \
 	      >> "$successfile"
     ./extendHITs.sh "$sandbox" -hours "$hours" -assignments "$count" -successfile "$successfile"
     rm "$successfile"
