@@ -64,7 +64,7 @@ cut -f1,21 "$resultfile" \
     | sort -n \
 	   > "$countfile"
 
-for count in $(cut -c-7 "$countfile" | uniq);do
+for count in $(cut -f1 -d\" "$countfile" | uniq);do
     successfile="$(mktemp)"
     echo "hitid" > "$successfile"
     grep "^ *$count " "$countfile" \
