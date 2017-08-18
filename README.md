@@ -11,13 +11,27 @@ runtime environment, and
 the
 [Amazon Mechanical Turk Command Line Tools](https://requester.mturk.com/developer/tools/clt) version
 1.3.1.  (Using more recent versions of the Command Line Tools may also
-work, but we have not tested this.)  The Amazon Mechanical Turk
-Command Line Tools must be in your `PATH`.
+work, but we have not tested this.)  The utilities assume that the
+Amazon Mechanical Turk Command Line Tools are in your `PATH`, but this
+can be overriden at compilation/installation time (see below).
 
-## Compilation
+## Compilation and installation
+
+For most setups it should be sufficient to use the standard
+incantation:
 
 ```
-mvn clean compile assembly:single
+make
+sudo make install
+```
+
+If the Amazon Mechanical Turk Command Line Tools are not in your
+`PATH`, or if you want to specify a different installation prefix,
+then you can pass these locations as arguments to `make`:
+
+```
+make PREFIX=/home/user/opt/mturk-utils AMTDIR=/opt/aws-mturk-clt-1.3.4/bin/
+sudo make PREFIX=/home/user/opt/mturk-utils AMTDIR=/opt/aws-mturk-clt-1.3.4/bin/ install
 ```
 
 ## Usage

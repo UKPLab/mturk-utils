@@ -23,4 +23,4 @@ if [ -z "${JAVA_HOME}" ]; then
     exit 1
 fi
 
-"$JAVA_HOME/bin/java" -jar ../target/mturk-utils-jar-with-dependencies.jar "$@"
+"$JAVA_HOME/bin/java" -jar "$JARDIR"/mturk-utils-jar-with-dependencies.jar "$@"

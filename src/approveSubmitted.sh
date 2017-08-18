@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2016
+# Copyright 2017
 # Ubiquitous Knowledge Processing (UKP) Lab
 # Technische Universität Darmstadt
 #
@@ -16,24 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script takes an AMT results file and determines how many rejected
-# assignments there are for each HIT.  Then it adds a corresponding number
-# of assignments for those HITs.
+# This script takes an AMT results file and approves all assignments
+# with a status of "Submitted".
 
 usage() {
-    echo "Usage: $0 [ -s ] -h <hours> <file.result>"
+    echo "Usage: $0 [ -s ] <file.result>"
     echo
     echo "  -s	run against the AMT developer sandbox environment"
-    echo "  -h	how many hours to extend the expiration date of the HITs"
 }
 
-while getopts ":h:s" opt; do
+while getopts ":s" opt; do
     case "$opt" in
 	s)
 	    sandbox="-sandbox"
-	    ;;
-	h)
-	    hours=${OPTARG}
 	    ;;
 	*)
 	    usage
@@ -43,7 +38,7 @@ while getopts ":h:s" opt; do
 done
 shift $((OPTIND-1))
 
-if [ -z "$hours" ] || [ $# != 1 ]; then
+if [ $# != 1 ]; then
     usage
     exit 1
 fi
@@ -55,24 +50,14 @@ if [ ! -r "$resultfile" ]; then
     exit 1
 fi
 
-countfile="$(mktemp)"
-cut -f1,21 "$resultfile" \
-    | fgrep "Rejected" \
+approvefile="$(mktemp)"
+echo -e "assignmentIdToApprove\tassignmentIdToApproveComment" > "$approvefile"
+
+cut -f19,21 "$resultfile" \
+    | fgrep "Submitted" \
     | cut -f1 \
-    | sort \
-    | uniq -c \
-    | sort -n \
-	   > "$countfile"
+    | sed 's/$/	/' \
+	   >> "$approvefile"
 
-for count in $(cut -f1 -d\" "$countfile" | uniq);do
-    successfile="$(mktemp)"
-    echo "hitid" > "$successfile"
-    grep "^ *$count " "$countfile" \
-	| cut -f2 -d\" \
-	      >> "$successfile"
-    extendHITs.sh "$sandbox" -hours "$hours" -assignments "$count" -successfile "$successfile"
-    rm "$successfile"
-done
-cd ..
-
-rm "$countfile"
+"$AMTDIR"approveWork.sh "$sandbox" -approvefile "$approvefile"
+rm "$approvefile"

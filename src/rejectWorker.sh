@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2016
+# Copyright 2017
 # Ubiquitous Knowledge Processing (UKP) Lab
 # Technische Universität Darmstadt
 #
@@ -73,6 +73,6 @@ for assignmentid in $(cut -f19,20 "$resultfile" \
 	 >> "$rejectfile"
 done
 
-rejectWork.sh "$sandbox" -rejectfile "$rejectfile"
+"$AMTDIR"rejectWork.sh "$sandbox" -rejectfile "$rejectfile"
 
 rm "$rejectfile"
