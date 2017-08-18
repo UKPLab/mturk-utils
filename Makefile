@@ -15,7 +15,7 @@
 # limitations under the License.
 
 PREFIX=/usr/local
-JARDIR=/share/mturk-utils
+JARDIR=/share/java
 #AMTDIR=/opt/aws-mturk-clt-1.3.4/bin/
 
 SCRIPTS=bin/setHITLocales.sh bin/approveSubmitted.sh bin/extendRejected.sh bin/rejectWorker.sh
