@@ -59,5 +59,5 @@ cut -f19,21 "$resultfile" \
     | sed 's/$/	/' \
 	   >> "$approvefile"
 
-./approveWork.sh "$sandbox" -approvefile "$approvefile"
+approveWork.sh "$sandbox" -approvefile "$approvefile"
 rm "$approvefile"

@@ -7,10 +7,12 @@ Mechanical Turk (AMT) requesters.
 
 To compile the utilities, you need [Maven](https://maven.apache.org/).
 To run the utilities, you need a Bourne-compatible shell, a Java
-runtime environment, and the
-[Amazon Mechanical Turk Command Line Tools](https://requester.mturk.com/developer/tools/clt)
-version 1.3.1.  (Using more recent versions of the Command Line Tools
-may also work, but we have not tested this.)
+runtime environment, and
+the
+[Amazon Mechanical Turk Command Line Tools](https://requester.mturk.com/developer/tools/clt) version
+1.3.1.  (Using more recent versions of the Command Line Tools may also
+work, but we have not tested this.)  The Amazon Mechanical Turk
+Command Line Tools must be in your `PATH`.
 
 ## Compilation
 

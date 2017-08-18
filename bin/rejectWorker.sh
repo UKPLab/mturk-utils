@@ -73,6 +73,6 @@ for assignmentid in $(cut -f19,20 "$resultfile" \
 	 >> "$rejectfile"
 done
 
-./rejectWork.sh "$sandbox" -rejectfile "$rejectfile"
+rejectWork.sh "$sandbox" -rejectfile "$rejectfile"
 
 rm "$rejectfile"

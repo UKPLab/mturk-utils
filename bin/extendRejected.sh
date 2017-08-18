@@ -70,7 +70,7 @@ for count in $(cut -f1 -d\" "$countfile" | uniq);do
     grep "^ *$count " "$countfile" \
 	| cut -f2 -d\" \
 	      >> "$successfile"
-    ./extendHITs.sh "$sandbox" -hours "$hours" -assignments "$count" -successfile "$successfile"
+    extendHITs.sh "$sandbox" -hours "$hours" -assignments "$count" -successfile "$successfile"
     rm "$successfile"
 done
 cd ..
