@@ -34,7 +34,7 @@ install: target/mturk-utils-jar-with-dependencies.jar $(SCRIPTS)
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	install bin/approveSubmitted.sh bin/extendRejected.sh bin/rejectWorker.sh bin/setHITLocales.sh $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)$(JARDIR)
-	install --mode=644 target/mturk-utils-jar-with-dependencies.jar $(DESTDIR)$(PREFIX)$(JARDIR)
+	install -m 644 target/mturk-utils-jar-with-dependencies.jar $(DESTDIR)$(PREFIX)$(JARDIR)
 
 .PHONY: uninstall
 uninstall:
@@ -48,4 +48,4 @@ uninstall:
 clean:
 	mvn clean
 	rm -f $(SCRIPTS)
-	rmdir --ignore-fail-on-non-empty bin
+	rmdir bin || true
