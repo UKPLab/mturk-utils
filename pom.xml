@@ -80,4 +80,21 @@
 	</build>
 
 
+	<name>UKP Amazon Mechanical Turk utilities</name>
+	<url>https://github.com/UKPLab/mturk-utils</url>
+	<description>Convenience utilities for Amazon Mechanical Turk (AMT) requesters.</description>
+	<inceptionYear>2016</inceptionYear>
+	<organization>
+		<name>Ubiquitous Knowledge Processing Lab, Department of Computer Science, Technische Universität Darmstadt</name>
+		<url>https://www.ukp.tu-darmstadt.de/</url>
+	</organization>
+	<scm>
+		<url>https://github.com/UKPLab/mturk-utils</url>
+		<connection>scm:https://github.com/UKPLab/mturk-utils.git</connection>
+		<developerConnection>scm:https://github.com/UKPLab/mturk-utils.git</developerConnection>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/UKPLab/mturk-utils/issues</url>
+	</issueManagement>
 </project>
