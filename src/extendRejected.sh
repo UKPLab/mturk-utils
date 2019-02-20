@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2017
+# Copyright 2019
 # Ubiquitous Knowledge Processing (UKP) Lab
 # Technische Universität Darmstadt
 #
@@ -51,7 +51,7 @@ fi
 resultfile=$1
 
 if [ ! -r "$resultfile" ]; then
-    echo "Can't open $resutfile"
+    echo "Can't open $resultfile"
     exit 1
 fi
 
