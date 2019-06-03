@@ -64,12 +64,11 @@ earlier versions of the AMT command-line utilities, you can specify
 more than one locale.  For example, you can restrict your HITs to
 workers in the United States, Germany, and Hungary by passing a locale
 value of `us,de,hu`.
-([Amazon apparently added this feature to the command-line tools in Version 1.3.3,](https://forums.aws.amazon.com/thread.jspa?messageID=755218&#755218)
+([Amazon apparently added this feature to the command-line tools in Version 1.3.3](https://forums.aws.amazon.com/thread.jspa?messageID=755218&#755218),
 so if you are using that version or later, then you probably do not
 need this script.)
 
 ## Contact
 
-[Tristan Miller](mailto:miller@ukp.informatik.tu-darmstadt.de),
-[Ubiquitous Knowledge Processing (UKP) Lab](https://www.ukp.tu-darmstadt.de/),
-[Technische Universität Darmstadt](https://www.tu-darmstadt.de/)
+[Tristan Miller](mailto:tristan.miller@ofai.at),
+[Austrian Research Institute for Artificial Intelligence](http://www.ofai.at/)

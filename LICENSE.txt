@@ -1,4 +1,4 @@
-Copright 2017 Ubiquitous Knowledge Processing (UKP) Lab
+Copright 2017, 2019 Ubiquitous Knowledge Processing (UKP) Lab
 Technische Universität Darmstadt
 
 Licensed under the Apache License, Version 2.0 (the "License");
