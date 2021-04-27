@@ -1,19 +1,29 @@
 # UKP Amazon Mechanical Turk utilities
 
 This project contains various convenience utilities for Amazon
-Mechanical Turk (AMT) requesters.
+Mechanical Turk (AMT) requesters using the original [Amazon Mechanical
+Turk Command Line
+Tools](https://web.archive.org/web/20170710111508/https://requester.mturk.com/developer/tools/clt).
+
+Note that Amazon has dropped support for the Command Line Tools and no
+longer distributes them; requesters are now expected to use one of the
+[AWS Software Development Kits](https://requester.mturk.com/developer)
+such as the [AWS Command Line
+Interface](https://github.com/aws/aws-cli). As such, the UKP Amazon
+Mechanical Turk utilities provided in this repository may no longer
+work properly or at all.
 
 ## Requirements
 
 To compile the utilities, you need [Maven](https://maven.apache.org/).
 To run the utilities, you need a Bourne-compatible shell, a Java
-runtime environment, and
-the
-[Amazon Mechanical Turk Command Line Tools](https://requester.mturk.com/developer/tools/clt) version
-1.3.1.  (Using more recent versions of the Command Line Tools may also
-work, but we have not tested this.)  The utilities assume that the
-Amazon Mechanical Turk Command Line Tools are in your `PATH`, but this
-can be overriden at compilation/installation time (see below).
+runtime environment, and the [Amazon Mechanical Turk Command Line
+Tools](https://web.archive.org/web/20170710111508/https://requester.mturk.com/developer/tools/clt)
+version 1.3.1.  (Using more recent versions of the Command Line Tools
+may also work, but we have not tested this.)  The utilities assume
+that the Amazon Mechanical Turk Command Line Tools are in your `PATH`,
+but this can be overriden at compilation/installation time (see
+below).
 
 ## Compilation and installation
 
@@ -27,11 +37,12 @@ sudo make install
 
 If the Amazon Mechanical Turk Command Line Tools are not in your
 `PATH`, or if you want to specify a different installation prefix,
-then you can pass these locations as arguments to `make`:
+then you can pass these locations as arguments to `make`.  For
+example:
 
 ```
-make PREFIX=/home/user/opt/mturk-utils AMTDIR=/opt/aws-mturk-clt-1.3.4/bin/
-sudo make PREFIX=/home/user/opt/mturk-utils AMTDIR=/opt/aws-mturk-clt-1.3.4/bin/ install
+make PREFIX=/path/to/mturk-utils AMTDIR=/path/to/aws-mturk-clt-1.3.4/bin/
+sudo make PREFIX=/path/to/mturk-utils AMTDIR=/path/to/aws-mturk-clt-1.3.4/bin/ install
 ```
 
 ## Usage
